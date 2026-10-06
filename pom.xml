@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  pom.xml = Project Object Model.
+  This is the HEART of the project. Maven reads this file to know:
+  1. What libraries (dependencies) to download
+  2. Which Java version to use
+  3. How to run the tests
+
+  Everything inside <dependencies> is automatically downloaded
+  from the internet (Maven Central Repository). No need to manually
+  download JAR files.
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- === Project identity === -->
+    <!-- groupId = like a package name (your company/org) -->
+    <groupId>org.example</groupId>
+    <!-- artifactId = project name -->
+    <artifactId>SqaAutomation</artifactId>
+    <!-- version = 1.0-SNAPSHOT means "still in development" -->
+    <version>1.0-SNAPSHOT</version>
+
+    <!-- === Settings === -->
+    <properties>
+        <!-- Compile with Java 17 -->
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <!-- Library versions — I put them here so I can change
+             all versions in ONE place instead of searching through the file -->
+        <selenium.version>4.43.0</selenium.version>
+        <testng.version>7.10.2</testng.version>
+        <webdrivermanager.version>5.9.2</webdrivermanager.version>
+        <extentreports.version>5.1.2</extentreports.version>
+        <log4j.version>2.24.3</log4j.version>
+    </properties>
+
+    <!-- === Libraries (dependencies) === -->
+    <!-- Each <dependency> has groupId, artifactId, version.
+         Maven uses these 3 things to find and download the library. -->
+    <dependencies>
+        <!-- Selenium: the browser automation library.
+             Controls Chrome/Edge programmatically.
+             selenium-java includes all the sub-modules (chrome driver, etc.) -->
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <version>${selenium.version}</version>
+        </dependency>
+
+        <!-- TestNG: the test framework.
+             Lets me write @Test, @BeforeMethod, assertions, etc.
+             Better than JUnit for Selenium projects -->
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>${testng.version}</version>
+        </dependency>
+
+        <!-- WebDriverManager: auto-downloads browser drivers.
+             Without this, I'd need to manually download chromedriver.exe -->
+        <dependency>
+            <groupId>io.github.bonigarcia</groupId>
+            <artifactId>webdrivermanager</artifactId>
+            <version>${webdrivermanager.version}</version>
+        </dependency>
+
+        <!-- ExtentReports: generates HTML test reports.
+             Creates nice-looking reports in the reports/ folder -->
+        <dependency>
+            <groupId>com.aventstack</groupId>
+            <artifactId>extentreports</artifactId>
+            <version>${extentreports.version}</version>
+        </dependency>
+
+        <!-- Log4j: logging library.
+             Prints timestamped messages to the console during test runs -->
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>${log4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-api</artifactId>
+            <version>${log4j.version}</version>
+        </dependency>
+    </dependencies>
+
+    <!-- === Build configuration === -->
+    <build>
+        <plugins>
+            <!-- Surefire plugin = the plugin that actually RUNS the tests.
+                 This tells Maven: "When you run 'mvn test', use testng.xml" -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.2.5</version>
+                <configuration>
+                    <suiteXmlFiles>
+                        <!-- THIS is why we need testng.xml.
+                             Maven reads this file to know which tests to run. -->
+                        <suiteXmlFile>src/test/resources/testng.xml</suiteXmlFile>
+                    </suiteXmlFiles>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

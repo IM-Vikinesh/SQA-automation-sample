@@ -1,0 +1,55 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<!--
+  TestNG suite configuration.
+  This file tells Maven/TestNG which tests to run and in what order.
+  
+  To run specific tests only: comment out the <test> blocks you don't want.
+  The listener connects ExtentReports so we get the HTML report.
+-->
+<suite name="SQA Automation Suite">
+    <listeners>
+        <listener class-name="reports.ExtentListener"/>
+    </listeners>
+
+    <test name="Registration Tests">
+        <classes>
+            <class name="tests.RegistrationTests"/>
+        </classes>
+    </test>
+
+    <test name="Login Tests">
+        <classes>
+            <class name="tests.LoginTests"/>
+        </classes>
+    </test>
+
+    <test name="Product Tests">
+        <classes>
+            <class name="tests.ProductTests"/>
+        </classes>
+    </test>
+
+    <test name="Cart Tests">
+        <classes>
+            <class name="tests.CartTests"/>
+        </classes>
+    </test>
+
+    <test name="Checkout Tests">
+        <classes>
+            <class name="tests.CheckoutTests"/>
+        </classes>
+    </test>
+
+    <test name="Contact Tests">
+        <classes>
+            <class name="tests.ContactTests"/>
+        </classes>
+    </test>
+
+    <test name="Account Tests">
+        <classes>
+            <class name="tests.AccountTests"/>
+        </classes>
+    </test>
+</suite>
